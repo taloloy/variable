@@ -1,0 +1,73 @@
+// variable scope ccs103
+#include <stdio.h>
+
+float balance = 2000.00;
+
+float balanceInq() {
+    return balance;
+}
+
+void deposit(float amount) {
+    if (amount <= 0) {
+        printf("Deposit amount should be greater than 0\n");
+        return;
+    }
+
+    balance += amount;
+    printf("Deposit Successful. New Balance: %.2f\n", balance);
+}
+
+void withdraw(float amount) {
+    if (amount <= 0) {
+        printf("Withdraw amount should be greater than 0\n");
+        return;
+    }
+    if (balance - amount < 500) {
+        printf("Transaction cannot be processed. Should have a maintaining balance of at least 500.\n");
+        return;
+    }
+
+    balance -= amount;
+    printf("Withdrawal Successful. New Balance: %.2f\n", balance);
+}
+
+int main() {
+    int userC;
+    float amount;
+
+    do {
+        printf("\nMENU\n");
+        printf("[1] - Inquiry\n[2] - Deposit\n[3] - Withdraw\n[0] - Quit\n");
+        printf("Choose from the Menu Options (0 to 3 only): ");
+        scanf("%d", &userC);
+
+        switch (userC) {
+            case 1:
+                printf("Current Balance: %.2f\n", balanceInq());
+                break;
+
+            case 2:
+                printf("Enter Deposit Amount: ");
+                scanf("%f", &amount);
+                deposit(amount);
+                break;
+
+            case 3:
+                printf("Enter Withdrawal Amount: ");
+                scanf("%f", &amount);
+                withdraw(amount);
+                break;
+
+            case 0:
+                printf("EXIT\n");
+                break;
+
+            default:
+                printf("Invalid Choice\n");
+                break;
+        }
+
+    } while (userC != 0);
+
+    return 0;
+}
